@@ -26,10 +26,16 @@ export default new Vuex.Store({
       if (index > -1) {
         state.items.splice(index, 1, data);
       }
+    },
+    deleteItem(state, data) {
+      let index = state.items.findIndex(i => i.id == data.id)
+      if (index > -1) {
+        state.items.splice(index, 1)
+      }
     }
   },
   actions: {
-    setBearer({}, bearer) {
+    setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;
     },
     resetBearer() {

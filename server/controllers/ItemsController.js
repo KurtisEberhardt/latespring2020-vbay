@@ -13,7 +13,17 @@ export class ItemsController extends BaseController {
       .get("", this.getAll)
       .use(auth0Provider.getAuthorizedUserInfo)
       .post("", this.create)
-      .put("/:id/bid", this.bid);
+      .put("/:id/bid", this.bid)
+      .delete("/:id", this.delort);
+  }
+  async delort(req, res, next) {
+    try {
+      let item = await itemsService.delort(req.params.id)
+      socketService.messageRoom("items", "deleteItem", item)
+      res.send(item)
+    } catch (error) {
+      next(error)
+    }
   }
   async getAll(req, res, next) {
     try {

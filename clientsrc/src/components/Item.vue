@@ -6,9 +6,8 @@
         <h5 class="card-title">{{ itemData.title }}</h5>
         <p>{{ itemData.description }} - ${{ itemData.price }}</p>
       </div>
-      <button @click="bid" v-if="$auth.isAuthenticated" class="btn btn-primary">
-        Bid + $5
-      </button>
+      <button @click="bid" v-if="$auth.isAuthenticated" class="btn btn-primary">Bid + $5</button>
+      <button class="btn btn-danger" @click="delortItem">Delort</button>
     </div>
   </div>
 </template>
@@ -21,6 +20,9 @@ export default {
     bid() {
       this.itemData.price += 5;
       this.$store.dispatch("bid", this.itemData);
+    },
+    delortItem() {
+      this.$store.dispatch("delortItem", this.itemData.id);
     }
   }
 };

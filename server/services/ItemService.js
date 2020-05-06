@@ -3,6 +3,13 @@ import { BadRequest } from "../utils/Errors";
 import Item from "../models/Item";
 
 class ItemsService {
+  async delort(id) {
+    let item = await dbContext.Items.findByIdAndDelete(id)
+    if (!item) {
+      throw new BadRequest("invalid Id")
+    }
+    return item
+  }
   async findAll(query = {}) {
     let items = await dbContext.Items.find(query).populate(
       "creator",
